@@ -56,6 +56,8 @@ private :
   std::vector<int>                recur_n_;
   std::vector<double>             recur_erad_;
   std::vector<double>             recur_z_;
+  std::vector<double>             recur_tf_;
+  std::vector<double>		  recur_logkt_;
   std::vector<double>             sjleadingtrack_;
   std::vector<double>             injectedtrack_z_;
   std::vector<double>             injectedtrack_theta_;
@@ -84,8 +86,8 @@ public :
   void setInjectTracks(Bool_t b, Int_t n);
   void setRecursiveAlgo(Int_t i);
   void setEventWeight(double e);
-  void RecursiveParents(fastjet::PseudoJet fJet,Bool_t bflagAdded, Int_t fAdditionalTracks, Int_t RecursiveAlgo);
-  std::vector<fastjet::PseudoJet> getGroomedJets() const;
+  void RecursiveParents(fastjet::PseudoJet fJet,Bool_t bflagAdded, Int_t fAdditionalTracks, Int_t RecursiveAlgo); 
+   std::vector<fastjet::PseudoJet> getGroomedJets() const;
   std::vector<double> getZgs() const;
   std::vector<int> getNDroppedSubjets() const;
   std::vector<double> getDR12() const;
@@ -96,7 +98,9 @@ public :
   std::vector<double> getRecur_LogDR12() const;
   std::vector<double> getRecur_LogZgDR12() const;
   std::vector<double> getRecur_z() const;
+  std::vector<double> getRecur_tf() const;
   std::vector<double> getRecur_Erad() const;
+  std::vector<double> getRecur_Logkt() const;
   std::vector<double> getInjectedz() const;
   std::vector<double> getInjectedtheta() const;
   std::vector<double> getInjectedpt() const;
@@ -245,6 +249,16 @@ std::vector<double> softDropGroomer::getRecur_z() const
 std::vector<double> softDropGroomer::getRecur_Erad() const
 {
    return recur_erad_;
+}
+
+std::vector<double> softDropGroomer::getRecur_tf() const
+{
+   return recur_tf_;
+}
+
+std::vector<double> softDropGroomer::getRecur_Logkt() const
+{
+   return recur_logkt_;
 }
 
 
@@ -474,12 +488,15 @@ std::vector<fastjet::PseudoJet> softDropGroomer::doGrooming()
 }
 
 //_________________________________________________________________________
+
 void softDropGroomer::RecursiveParents(fastjet::PseudoJet fJet, Bool_t bflagAdded, Int_t fAdditionalTracks, Int_t RecursiveAlgo){
+
  
   std::vector<fastjet::PseudoJet>  fInputVectors;
   fInputVectors.clear();
   double xflagalgo=0; 
   Float_t kpval=0;
+
   fInputVectors = fJet.constituents();
   if(bflagAdded && fJet.m()!=0){
     //fastjet::PseudoJet MyJet;
@@ -492,7 +509,7 @@ void softDropGroomer::RecursiveParents(fastjet::PseudoJet fJet, Bool_t bflagAdde
     Double_t xQs=TMath::Sqrt(fqhat*fxlength);				
    
 
-    for(Int_t i=0;i<fAdditionalTracks;i++){
+    /*for(Int_t i=0;i<fAdditionalTracks;i++){
 
       Double_t ppx,ppy,ppz,kTscale,lim2o,lim1o;
       Double_t lim2=xQs;   
@@ -529,28 +546,29 @@ void softDropGroomer::RecursiveParents(fastjet::PseudoJet fJet, Bool_t bflagAdde
       //in the frame of the jet 
       //xflagAdded=1;
     }
+    }*/
 
   }
   
-    fastjet::JetAlgorithm jetalgo(fastjet::genkt_algorithm);
+  fastjet::JetAlgorithm jetalgo(fastjet::genkt_algorithm);
+ 
   if(RecursiveAlgo==0){
     //CA
     kpval=0;
-  }
+  } 
   if(RecursiveAlgo==1){
     //kT
-    kpval=-1;
+     kpval=-1;
   } 
   if(RecursiveAlgo==2){ 
-    //antikt
-    kpval=1;
+     //antikt
+     kpval=1;
   }
   if(RecursiveAlgo==3){ 
-    //tform-ordered
-    kpval=0.5;
+     //tform-ordered
+     kpval=0.5;
   }
-  
-fastjet::JetDefinition fJetDef(jetalgo, 1., kpval, static_cast<fastjet::RecombinationScheme>(0), fastjet::BestFJ30 ); 
+  fastjet::JetDefinition fJetDef(jetalgo, 1., kpval, static_cast<fastjet::RecombinationScheme>(0), fastjet::BestFJ30 ); 
 
   fastjet::ClusterSequence fClustSeqSA(fInputVectors, fJetDef);
   std::vector<fastjet::PseudoJet>   fOutputJets;
@@ -568,12 +586,15 @@ fastjet::JetDefinition fJetDef(jetalgo, 1., kpval, static_cast<fastjet::Recombin
     if(j1.perp() < j2.perp()) swap(j1,j2);
     double delta_R=j1.delta_R(j2);
     double z=j2.perp()/(j1.perp()+j2.perp());
+    double omega=z*j2.e();
     recur_jetpt_.push_back(jet_pT);
     recur_logdr12_.push_back(TMath::Log(1.0/delta_R));
     recur_logzgdr12_.push_back(TMath::Log(z*delta_R));
+    recur_logkt_.push_back(TMath::Log(j2.perp()*delta_R));
     recur_n_.push_back(n);
     recur_erad_.push_back(j1.e()+j2.e());
     recur_z_.push_back(z);
+    recur_tf_.push_back(2*omega*0.197327053/((j2.perp()*delta_R)*(j2.perp()*delta_R)));  //multiplication with hbar c to get right units
     jj=j1;
   } 
 

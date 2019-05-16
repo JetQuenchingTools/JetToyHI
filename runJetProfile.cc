@@ -44,6 +44,8 @@ void DesignRecurColl(jetCollection *jColl, softDropGroomer sDG, int ncs=0){
     jColl->addVector(Form("recur%i_n",ncs),  sDG.getRecur_N());
     jColl->addVector(Form("recur%i_z",ncs),  sDG.getRecur_z());
     jColl->addVector(Form("recur%i_erad",ncs),  sDG.getRecur_Erad());
+    jColl->addVector(Form("recur%i_tf",ncs),sDG.getRecur_tf());
+    jColl->addVector(Form("recur%i_logkt",ncs),sDG.getRecur_Logkt());
 }
 
 int main (int argc, char ** argv) {

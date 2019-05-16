@@ -88,16 +88,12 @@ namespace Rivet {
       
       //! parameters for splitting function
       z_cut=0.1;
-<<<<<<< HEAD
       beta = 0;
 
       //! event normalizations
       _Ntriggers = 0.0;
       _Ndijets = 0.0;
 
-=======
-      beta = 0;      
->>>>>>> added PU14toHepMC converter c++ script from Lief and started directory for RIVET_Analysis that we can populate
 
       /// final state and jet projection
       FinalState fs(-5.0, 5.0, 0.2*GeV);
@@ -108,7 +104,6 @@ namespace Rivet {
       ChargedFinalState cfs(-5.0, 5.0, 0.2*GeV);
       addProjection(cfs, "CFS");
 
-<<<<<<< HEAD
       if (_mode == 0){
 	//! this is just hadron+jet
 	LeadingParticlesFinalState hadronfs(FinalState(-1.0, 1.0, 10.0*GeV));
@@ -136,44 +131,11 @@ namespace Rivet {
 	fout = new TFile("jettools_jewel_AuAu_cent05_wrecoil_200_dijet_study_correlation_histograms.root", "RECREATE");
       }
 
-=======
-      if (_mode == 0)
-	{
-	  //! this is just hadron+jet
-	  LeadingParticlesFinalState hadronfs(FinalState(-1.0, 1.0, 10.0*GeV));
-	  hadronfs.addParticleId(111);
-	  hadronfs.addParticleId(211);
-	  hadronfs.addParticleId(-211);
-	  addProjection(hadronfs, "LeadingHadron");
-	  vfs.addVetoOnThisFinalState(hadronfs);
-	  addProjection(vfs, "VFS");
-	  // addProjection(FastJets(vfs, FastJets::ANTIKT, _jetR), "Jets");
-	}
-      else if (_mode == 1)
-	{
-	  //! this is photon+jet 
-	  LeadingParticlesFinalState photonfs(FinalState(-2.5, 2.5, 10.0*GeV));
-	  photonfs.addParticleId(PID::PHOTON);
-	  addProjection(photonfs, "LeadingPhoton");
-	  vfs.addVetoOnThisFinalState(photonfs);
-	  addProjection(vfs, "VFS");
-	  // addProjection(FastJets(vfs, FastJets::ANTIKT, _jetR), "Jets");
-	}
-      else if (_mode == 2)
-	{
-	  //! this is dijet+jet
-	  // addProjection(FastJets(HCfs, FastJets::ANTIKT, _jetR), "JetsHC");	  
-	  // addProjection(FastJets(fs, FastJets::ANTIKT, _jetR), "Jets");	  
-	}
-
-      fout = new TFile("jettools_jewel_pp_200_dijet_gammaJet_study_correlation_histograms.root", "RECREATE");
->>>>>>> added PU14toHepMC converter c++ script from Lief and started directory for RIVET_Analysis that we can populate
       
       //! declare all the histograms that you want to study -
       hDeltaPhi_Trigger_ChargedParticles = new TH1D("hDeltaPhi_Trigger_ChargedParticles", "", 60, 0, 3.3);
       hDeltaPhi_Trigger_LeadingRecoilJet = new TH1D("hDeltaPhi_Trigger_LeadingRecoilJet", "", 60, 0, 3.3);
       hDeltaPhi_Trigger_LeadingRecoilJet_WTAAxis = new TH1D("hDeltaPhi_Trigger_LeadingRecoilJet_WTAAxis", "", 60, 0, 3.3);
-<<<<<<< HEAD
       hDeltaPhi_Trigger_LeadingRecoilJet_WTAAxis_largeR = new TH1D("hDeltaPhi_Trigger_LeadingRecoilJet_WTAAxis_largeR", "", 60, 0, 3.3);
       hDeltaPhi_Trigger_SubLeadingRecoilJet = new TH1D("hDeltaPhi_Trigger_SubLeadingRecoilJet", "", 60, 0, 3.3);
       hDeltaPhi_Trigger_AllRecoilJets = new TH1D("hDeltaPhi_Trigger_AllRecoilJets", "", 60, 0, 3.3);
@@ -181,18 +143,11 @@ namespace Rivet {
       hDeltaR_RecoilJet_JetAxis_WTAAxis_largeR = new TH1D("hDeltaR_RecoilJet_JetAxis_WTAAxis_largeR", "", 60, 0, 0.4);
       hDeltaR_RecoilJet_JetAxis_LeadSubJetAxis = new TH1D("hDeltaR_RecoilJet_JetAxis_LeadSubJetAxis", "", 60, 0, 0.4);
       hDeltaR_RecoilJet_GroomedJetAxis_WTAAxis_largeR = new TH1D("hDeltaR_RecoilJet_GroomedJetAxis_WTAAxis_largeR", "", 60, 0, 0.4);
-=======
-      hDeltaPhi_Trigger_SubLeadingRecoilJet = new TH1D("hDeltaPhi_Trigger_SubLeadingRecoilJet", "", 60, 0, 3.3);
-      hDeltaPhi_Trigger_AllRecoilJets = new TH1D("hDeltaPhi_Trigger_AllRecoilJets", "", 60, 0, 3.3);
-      hDeltaR_RecoilJet_JetAxis_WTAAxis = new TH1D("hDeltaR_RecoilJet_JetAxis_WTAAxis", "", 60, 0, 0.4);
-      hDeltaR_RecoilJet_JetAxis_LeadSubJetAxis = new TH1D("hDeltaR_RecoilJet_JetAxis_LeadSubJetAxis", "", 60, 0, 0.4);
->>>>>>> added PU14toHepMC converter c++ script from Lief and started directory for RIVET_Analysis that we can populate
       h_RecoilJet_TwoSubJet_Theta_R0p1 = new TH1D("h_RecoilJet_TwoSubJet_Theta_R0p1", "", 60, 0, 0.5);
       h_RecoilJet_TwoSubJet_Z_R0p1 = new TH1D("h_RecoilJet_TwoSubJet_Z_R0p1", "", 60, 0, 0.5);
       hSoftDrop_Zg_LeadingRecoilJet = new TH1D("hSoftDrop_Zg_LeadingRecoilJet", "", 60, 0, 0.5);
       hSoftDrop_Rg_LeadingRecoilJet = new TH1D("hSoftDrop_Rg_LeadingRecoilJet", "", 60, 0, 0.5);
 
-<<<<<<< HEAD
       h_HardCore_Dijet_Aj = new TH1D("h_HardCore_Dijet_Aj", "", 20, 0, 1);
       h_HardCore_RecoilJetYield = new TH1D("h_HardCore_RecoilJetYield", "", 40, 0, 40);
       hDeltaPhi_HardCore_Dijet = new TH1D("hDeltaPhi_HardCore_Dijet", "", 60, 0, 3.3);
@@ -228,8 +183,6 @@ namespace Rivet {
       hDeltaPhi_MatchedRecoilJet_MatchedRecoilJet_WTAAxis_largeR = new TH1D("hDeltaPhi_MatchedRecoilJet_MatchedRecoilJet_WTAAxis_largeR", "", 60, 0, 3.3);
       
 
-=======
->>>>>>> added PU14toHepMC converter c++ script from Lief and started directory for RIVET_Analysis that we can populate
       hTriggerPhi = new TH1D("hTriggerPhi", "", 100, -7, 7);
       hJetPhi = new TH1D("hJetPhi", "", 100, -7, 7);
       
@@ -243,7 +196,6 @@ namespace Rivet {
 
       ParticleVector Trigger;
       const FinalState& chargedfs = applyProjection<FinalState>(event, "CFS");      
-<<<<<<< HEAD
       const FinalState& finalstate = applyProjection<FinalState>(event, "FS");      
       
       //! event common fastjet objects - 
@@ -260,28 +212,10 @@ namespace Rivet {
       //! fill the softdrop variable
       fastjet::contrib::RecursiveSymmetryCutBase::SymmetryMeasure  symmetry_measure = fastjet::contrib::RecursiveSymmetryCutBase::scalar_z;
       fastjet::contrib::SoftDrop sd(beta, z_cut, symmetry_measure, _jetR);
-=======
-      
-      if (_mode == 0){
-	//! leading hadron -
-	Trigger = applyProjection<FinalState>(event, "LeadingHadron").particles();
-	if(Trigger.size() != 1) vetoEvent;
-      } else if (_mode == 1){
-	//! leading photon 
-	Trigger = applyProjection<FinalState>(event, "LeadingPhoton").particles();
-	if (Trigger.size() != 1) vetoEvent;
-      }
-
-      Particle trigger = Trigger.at(0);
-
-      double trigger_phi = trigger.momentum().phi();
-      hTriggerPhi->Fill(trigger_phi);
->>>>>>> added PU14toHepMC converter c++ script from Lief and started directory for RIVET_Analysis that we can populate
 
       //! Now do the analysis for both triggered samples -
       if(_mode == 1 || _mode == 0){
 
-<<<<<<< HEAD
 	if (_mode == 0){
 	  //! leading hadron -
 	  Trigger = applyProjection<FinalState>(event, "LeadingHadron").particles();
@@ -302,12 +236,6 @@ namespace Rivet {
 	double trigger_phi = trigger.momentum().phi();
 	hTriggerPhi->Fill(trigger_phi);
 	
-=======
-	fastjet::Selector select_eta  = fastjet::SelectorAbsEtaMax(1.0 - _jetR);
-	fastjet::Selector select_pt_lo   = fastjet::SelectorPtMin(_pTCut);
-	fastjet::Selector select_both = select_pt_lo && select_eta;
-
->>>>>>> added PU14toHepMC converter c++ script from Lief and started directory for RIVET_Analysis that we can populate
 	//! get all the particles from the vetoed final state
 	const FinalState& vetoedfs = applyProjection<FinalState>(event, "VFS");
 
@@ -324,7 +252,6 @@ namespace Rivet {
 	}
 
 	//! get subjets -
-<<<<<<< HEAD
 	fastjet::ClusterSequence cs_recoiljets(vetoedparticles, jetd);
 	PseudoJets recoilJETS = sorted_by_pt(cs_recoiljets.inclusive_jets());
 	PseudoJets rJets = select_both(recoilJETS);
@@ -336,12 +263,6 @@ namespace Rivet {
 	    recoilJets.push_back(jet);
 	}
 	
-=======
-	fastjet::JetDefinition jetd(fastjet::antikt_algorithm, 0.1);
-	fastjet::ClusterSequence cs_recoiljets(vetoedparticles, jetd);
-	PseudoJets recoilJETS = sorted_by_pt(cs_recoiljets.inclusive_jets());
-	PseudoJets recoilJets = select_both(recoilJETS); 
->>>>>>> added PU14toHepMC converter c++ script from Lief and started directory for RIVET_Analysis that we can populate
 	const int _Njet = recoilJets.size();
 	if(_Njet==0) vetoEvent;
 
@@ -362,12 +283,6 @@ namespace Rivet {
 	foreach(const fastjet::PseudoJet& jet, recoilJets){
 	  hDeltaPhi_Trigger_AllRecoilJets->Fill(deltaPhi(trigger.momentum().phi(), jet.phi()), weight);
 	}
-<<<<<<< HEAD
-=======
-
-	//! get wta axis for the jet -
-	JetDefinition wta_jet_def(fastjet::antikt_algorithm, _jetR, fastjet::WTA_pt_scheme);
->>>>>>> added PU14toHepMC converter c++ script from Lief and started directory for RIVET_Analysis that we can populate
 	
 	PseudoJets lead_recoiljet_consts = leading_recoiljet.constituents();
 	fastjet::ClusterSequence cs_wta_leadingrecoiljet(lead_recoiljet_consts, wta_jet_def);
@@ -377,7 +292,6 @@ namespace Rivet {
 	hDeltaR_RecoilJet_JetAxis_WTAAxis->Fill(leading_recoiljet.delta_R(wta_lead_recoiljet), weight);
 	hDeltaPhi_Trigger_LeadingRecoilJet_WTAAxis->Fill(deltaPhi(trigger.momentum().phi(), wta_lead_recoiljet.phi()), weight);
 
-<<<<<<< HEAD
 	fastjet::ClusterSequence cs_wta_larger_leadingrecoiljet(lead_recoiljet_consts, wta_larger_jet_def);
 	PseudoJets wta_larger_lead_recoiljets = cs_wta_larger_leadingrecoiljet.inclusive_jets();
 	PseudoJet wta_larger_lead_recoiljet = wta_larger_lead_recoiljets.at(0);
@@ -386,11 +300,6 @@ namespace Rivet {
 	hDeltaPhi_Trigger_LeadingRecoilJet_WTAAxis_largeR->Fill(deltaPhi(trigger.momentum().phi(), wta_larger_lead_recoiljet.phi()), weight);
 	
 	fastjet::ClusterSequence clust_seq_lead_recoil_subjet(lead_recoiljet_consts, sub_jetd);	
-=======
-	//! get subjets -
-	fastjet::JetDefinition sub_jetd(fastjet::antikt_algorithm, 0.1);
-	fastjet::ClusterSequence clust_seq_lead_recoil_subjet(lead_recoiljet_consts, sub_jetd);\	
->>>>>>> added PU14toHepMC converter c++ script from Lief and started directory for RIVET_Analysis that we can populate
 	PseudoJets subjets = sorted_by_pt(clust_seq_lead_recoil_subjet.inclusive_jets());
 
 	hDeltaR_RecoilJet_JetAxis_LeadSubJetAxis->Fill(leading_recoiljet.delta_R(subjets.at(0)), weight);
@@ -403,32 +312,20 @@ namespace Rivet {
 	  h_RecoilJet_TwoSubJet_Z_R0p1->Fill(zsj, weight);
 	}
 
-<<<<<<< HEAD
-=======
-	//! fill the softdrop variable
-	fastjet::contrib::RecursiveSymmetryCutBase::SymmetryMeasure  symmetry_measure = fastjet::contrib::RecursiveSymmetryCutBase::scalar_z;
-	fastjet::contrib::SoftDrop sd(beta, z_cut, symmetry_measure, _jetR);
->>>>>>> added PU14toHepMC converter c++ script from Lief and started directory for RIVET_Analysis that we can populate
 	PseudoJet sd_jet = sd(leading_recoiljet);
 	double z = sd_jet.structure_of<fastjet::contrib::SoftDrop>().symmetry();
 	double r = sd_jet.structure_of<fastjet::contrib::SoftDrop>().delta_R();
 
-<<<<<<< HEAD
 	if(sd_jet!=0){
 	  hDeltaR_RecoilJet_GroomedJetAxis_WTAAxis_largeR->Fill(deltaPhi(sd_jet.phi(), wta_lead_recoiljet.phi()), weight);	
 	  hSoftDrop_Zg_LeadingRecoilJet->Fill(z, weight);
 	  hSoftDrop_Rg_LeadingRecoilJet->Fill(r, weight);
 	}
-=======
-	hSoftDrop_Zg_LeadingRecoilJet->Fill(z, weight);
-	hSoftDrop_Rg_LeadingRecoilJet->Fill(r, weight);
->>>>>>> added PU14toHepMC converter c++ script from Lief and started directory for RIVET_Analysis that we can populate
 
 
       }//! mode = 1 or 0 
       
       
-<<<<<<< HEAD
       if (_mode == 2){
 	
 	
@@ -622,26 +519,10 @@ namespace Rivet {
 
     }//! analyze method 
     
-=======
-      if (_mode == 2)
-	{
-	  // //! dijet selections 
-	  // const FastJets& HCJets = applyProjection<FastJets>(event, "JetsHC");
-	  // Cut cuts = Cuts::etaIn(-1.0, 1.0) & (Cuts::pT > 10.0*GeV);
-	  // const Jets hcJets = HCJets.jetsByPt(cuts);
-	  // const int _NjetHC = hcJets.size();
-	  // if(_NjetHC < 1) vetoEvent;
-	}
-      
-
-    }//! analyze method 
-
->>>>>>> added PU14toHepMC converter c++ script from Lief and started directory for RIVET_Analysis that we can populate
     /// Normalise histograms etc., after the run
     void finalize() {
 
       fout->cd();
-<<<<<<< HEAD
 
       //! normalize and write histograms 
       if(_mode==0 || _mode == 1){
@@ -764,9 +645,6 @@ namespace Rivet {
 	
       }
       
-=======
-      fout->Write();
->>>>>>> added PU14toHepMC converter c++ script from Lief and started directory for RIVET_Analysis that we can populate
       fout->Close();
       
     }//! finalize
@@ -782,12 +660,9 @@ namespace Rivet {
 
     double z_cut;
     double beta;
-<<<<<<< HEAD
 
     double _Ntriggers;
     double _Ndijets;
-=======
->>>>>>> added PU14toHepMC converter c++ script from Lief and started directory for RIVET_Analysis that we can populate
         
   private:
 
@@ -796,17 +671,13 @@ namespace Rivet {
     TH1D * hDeltaPhi_Trigger_SubLeadingRecoilJet;
     TH1D * hDeltaPhi_Trigger_AllRecoilJets;
     TH1D * hDeltaR_RecoilJet_JetAxis_WTAAxis;
-<<<<<<< HEAD
     TH1D * hDeltaR_RecoilJet_JetAxis_WTAAxis_largeR;
-=======
->>>>>>> added PU14toHepMC converter c++ script from Lief and started directory for RIVET_Analysis that we can populate
     TH1D * hDeltaR_RecoilJet_JetAxis_LeadSubJetAxis;
     TH1D * h_RecoilJet_TwoSubJet_Theta_R0p1;
     TH1D * h_RecoilJet_TwoSubJet_Z_R0p1;
     TH1D * hSoftDrop_Zg_LeadingRecoilJet;
     TH1D * hSoftDrop_Rg_LeadingRecoilJet;
     TH1D * hDeltaPhi_Trigger_LeadingRecoilJet_WTAAxis;
-<<<<<<< HEAD
     TH1D * hDeltaPhi_Trigger_LeadingRecoilJet_WTAAxis_largeR;
     TH1D * hDeltaR_RecoilJet_GroomedJetAxis_WTAAxis_largeR;
     TH1D * hTriggerPhi;
@@ -846,11 +717,6 @@ namespace Rivet {
     TH1D * hDeltaPhi_MatchedRecoilJet_MatchedRecoilJet_WTAAxis_largeR;
     
     
-=======
-    TH1D * hTriggerPhi;
-    TH1D * hJetPhi;
-
->>>>>>> added PU14toHepMC converter c++ script from Lief and started directory for RIVET_Analysis that we can populate
     TFile * fout;
     
   };
@@ -866,17 +732,10 @@ namespace Rivet {
   };
   
   //! dijet coincidence 
-<<<<<<< HEAD
   class JETTOOLS_DIJET_COINCIDENCE : public JETTOOLS_COINCIDENCE {
   public:
     JETTOOLS_DIJET_COINCIDENCE()
       : JETTOOLS_COINCIDENCE("JETTOOLS_DIJET_COINCIDENCE")
-=======
-  class JETTOOLS_JET_JET_COINCIDENCE : public JETTOOLS_COINCIDENCE {
-  public:
-    JETTOOLS_JET_JET_COINCIDENCE()
-      : JETTOOLS_COINCIDENCE("JETTOOLS_JET_JET_COINCIDENCE")
->>>>>>> added PU14toHepMC converter c++ script from Lief and started directory for RIVET_Analysis that we can populate
     {
       _mode = 2;
     }
@@ -886,11 +745,7 @@ namespace Rivet {
   // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(JETTOOLS_COINCIDENCE);
   DECLARE_RIVET_PLUGIN(JETTOOLS_PHOTON_JET_COINCIDENCE);
-<<<<<<< HEAD
   DECLARE_RIVET_PLUGIN(JETTOOLS_DIJET_COINCIDENCE);
-=======
-  DECLARE_RIVET_PLUGIN(JETTOOLS_JET_JET_COINCIDENCE);
->>>>>>> added PU14toHepMC converter c++ script from Lief and started directory for RIVET_Analysis that we can populate
   
   
 }
